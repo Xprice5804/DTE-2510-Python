@@ -60,13 +60,11 @@ class TickTacToe:
             if all(s == 'X' for s in self.pressedButtons[col]):
                 print("vinner")
                 return True
-        #for row in range(3):
-        #    if all(s == 'X' for s in self.pressedButtons[row][0]):
-        #        print("vinner")
-        #        return True
+                
         for x in range(3):
-            if all(s == 'X' for s in self.pressedButtons[x]):
+            if self.pressedButtons[0][x] == 'X' and self.pressedButtons[1][x] == 'X' and self.pressedButtons[2][x] == 'X':
                 print("vunnet") 
+            
 
 
 
