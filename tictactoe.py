@@ -1,5 +1,9 @@
+
+
 from tkinter import *
+from tkinter.messagebox import askyesno
 import tkinter as tk
+import tkinter
 import tkinter.font as font
 import random
 
@@ -43,7 +47,6 @@ class TickTacToe:
                 print(rute)
                 array.append(rute)
  
-
         window.mainloop()
 
     def selectSquare(self, row, col):
@@ -54,23 +57,28 @@ class TickTacToe:
         print([row,col])
         return
 
-    def checkWin(self):
+    def checkWin(self, player):
         
         for col in range(3):
-            if all(s == 'X' for s in self.pressedButtons[col]):
-                print("vinner")
+            if all(s == player for s in self.pressedButtons[col]):
+                print('vinner')
                 return True
-                
+
         for x in range(3):
-            if self.pressedButtons[0][x] == 'X' and self.pressedButtons[1][x] == 'X' and self.pressedButtons[2][x] == 'X':
-                print("vunnet") 
-            
+            if self.pressedButtons[0][x] == player and self.pressedButtons[1][x] == player and self.pressedButtons[2][x] == player:
+                print('vunnet') 
+                return True
 
-
-
-
-
-        return
+        if self.pressedButtons[0][0] == player and self.pressedButtons[1][1] == player and self.pressedButtons[2][2] == player:
+            print('vunnet')
+            return True
+        elif self.pressedButtons[0][0] == player and self.pressedButtons[1][1] == player and self.pressedButtons[2][2] == player:
+            print('vunnet')
+            return True
+        else:
+            return False
+        
+        
 
     def nextTurn(self):
         def choose():
@@ -88,9 +96,30 @@ class TickTacToe:
         button['text'] = 'O'
         self.pressedButtons[place[0]][place[1]] = 'O'
 
-        self.checkWin()
+        if self.checkWin('O'):
+            self.reset(False)
+        elif self.checkWin('X'):
+            self.reset(True)
         return
     
-
+    def reset(self, vunnet):
+        if vunnet:
+            if tkinter.messagebox.askyesno( title = 'Gratulerer', message = 'Gratulerer du har vunnet, Ønsker du å spillle igjen'):
+                self.pressedButtons = [['','',''], ['','',''], ['','','']]
+                for row in range(3):
+                    for col in range(3):
+                        button = self.table[row][col]
+                        button['text'] = ' '
+            else:
+                exit()
+        else:
+            if tkinter.messagebox.askyesno( title = 'Beklager', message = 'Du tapte, kanskje du vil spille igjen'):
+                self.pressedButtons = [['','',''], ['','',''], ['','','']]
+                for row in range(3):
+                    for col in range(3):
+                        button = self.table[row][col]
+                        button['text'] = ' '
+            else: 
+                exit()
 
 TickTacToe()
