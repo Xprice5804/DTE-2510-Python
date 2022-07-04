@@ -81,6 +81,11 @@ class TickTacToe:
         
 
     def nextTurn(self):
+        if self.checkWin('O'):
+            self.reset(False)
+        elif self.checkWin('X'):
+            self.reset(True)
+
         def choose():
             row = random.randrange(0,3)
             col = random.randrange(0,3)
@@ -96,10 +101,7 @@ class TickTacToe:
         button['text'] = 'O'
         self.pressedButtons[place[0]][place[1]] = 'O'
 
-        if self.checkWin('O'):
-            self.reset(False)
-        elif self.checkWin('X'):
-            self.reset(True)
+        
         return
     
     def reset(self, vunnet):
